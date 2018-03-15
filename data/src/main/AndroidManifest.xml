@@ -1,2 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="ru.aleksandrorlov.data" />
+    package="ru.aleksandrorlov.data" >
+
+    <application android:allowBackup="true" />
+</manifest>
