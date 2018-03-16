@@ -1,5 +1,8 @@
 package ru.aleksandrorlov.data.database;
 
+import com.orm.SugarRecord;
+
+import java.util.Collection;
 import java.util.List;
 
 import ru.aleksandrorlov.data.entity.YandexPictureEntity;
@@ -13,17 +16,28 @@ public class YandexPictureDataBaseImpl implements YandexPictureDataBase {
 
     @Override
     public void put(YandexPictureEntity yandexPictureEntity) {
-
+        yandexPictureEntity.save();
     }
 
     @Override
-    public void update(long yandexPictureId, YandexPictureEntity yandexPictureEntity) {
+    public void putAll(Collection<YandexPictureEntity> yandexPictureEntityList) {
+        SugarRecord.saveInTx(yandexPictureEntityList);
+    }
 
+    @Override
+    public void update(long yandexPictureId, YandexPictureEntity newEntity) {
+        YandexPictureEntity oldEntity =
+                YandexPictureEntity.findById(YandexPictureEntity.class, yandexPictureId);
+        oldEntity.setUrl(newEntity.getUrl());
+        oldEntity.setRequest(newEntity.getRequest());
+        oldEntity.save();
     }
 
     @Override
     public void delete(long yandexPictureId) {
-
+        YandexPictureEntity yandexPictureEntity =
+                YandexPictureEntity.findById(YandexPictureEntity.class, yandexPictureId);
+        yandexPictureEntity.delete();
     }
 
     @Override
