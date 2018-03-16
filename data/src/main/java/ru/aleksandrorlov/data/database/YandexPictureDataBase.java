@@ -10,9 +10,9 @@ import ru.aleksandrorlov.data.entity.YandexPictureEntity;
 
 public interface YandexPictureDataBase {
     void put(YandexPictureEntity yandexPictureEntity);
-    void update(final int yandexPictureId, YandexPictureEntity yandexPictureEntity);
-    void delete(final int yandexPictureId);
+    void update(final long yandexPictureId, YandexPictureEntity yandexPictureEntity);
+    void delete(final long yandexPictureId);
 
-    YandexPictureEntity getYandexPicture(final int yandexPictureId);
+    YandexPictureEntity getYandexPicture(final long yandexPictureId);
     List<YandexPictureEntity> getYandexPictureList();
 }

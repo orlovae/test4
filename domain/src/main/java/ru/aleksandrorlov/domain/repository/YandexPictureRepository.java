@@ -12,5 +12,5 @@ import ru.aleksandrorlov.domain.YandexPicture;
 public interface YandexPictureRepository {
     Observable<List<YandexPicture>> yandexPictures();
 
-    Observable<YandexPicture> yandexPicture(final int yandexPictureId);
+    Observable<YandexPicture> yandexPicture(final long yandexPictureId);
 }
