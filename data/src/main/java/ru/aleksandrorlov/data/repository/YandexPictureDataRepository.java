@@ -6,5 +6,6 @@ import ru.aleksandrorlov.domain.repository.YandexPictureRepository;
  * Created by alex on 16.03.18.
  */
 
-public class YandexPictureRepository implements YandexPictureRepository {
+public class YandexPictureDataRepository implements YandexPictureRepository {
+
 }
