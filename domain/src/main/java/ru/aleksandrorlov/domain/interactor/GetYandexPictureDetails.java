@@ -5,6 +5,7 @@ import ru.aleksandrorlov.domain.YandexPicture;
 import ru.aleksandrorlov.domain.executor.PostExecutionThread;
 import ru.aleksandrorlov.domain.executor.ThreadExecutor;
 import ru.aleksandrorlov.domain.repository.YandexPictureRepository;
+import ru.aleksandrorlov.domain.util.Preconditions;
 
 /**
  * Created by alex on 16.03.18.
@@ -23,15 +24,8 @@ public class GetYandexPictureDetails extends UseCase<YandexPicture, GetYandexPic
 
     @Override
     Observable<YandexPicture> buildUseCaseObservable(Params params) {
-        checkNotNull(params);
+        Preconditions.checkNotNull(params);
         return this.repository.yandexPicture(params.yandexPictureId);
-    }
-
-    private <T> T checkNotNull(T reference) {
-        if (reference == null) {
-            throw new NullPointerException();
-        }
-        return reference;
     }
 
     public static final class Params {

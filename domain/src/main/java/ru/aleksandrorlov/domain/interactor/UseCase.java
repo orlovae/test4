@@ -7,6 +7,7 @@ import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
 import ru.aleksandrorlov.domain.executor.PostExecutionThread;
 import ru.aleksandrorlov.domain.executor.ThreadExecutor;
+import ru.aleksandrorlov.domain.util.Preconditions;
 
 /**
  * Created by alex on 16.03.18.
@@ -27,7 +28,7 @@ public abstract class UseCase<T, Params> {
     abstract Observable<T> buildUseCaseObservable(Params params);
 
     public void execute(DisposableObserver<T> observer, Params params) {
-        checkNotNull(observer);
+        Preconditions.checkNotNull(observer);
         final Observable<T> observable = this.buildUseCaseObservable(params)
                 .subscribeOn(Schedulers.from(threadExecutor))
                 .observeOn(postExecutionThread.getScheduler());
@@ -41,15 +42,8 @@ public abstract class UseCase<T, Params> {
     }
 
     private void addDisposable(Disposable disposable) {
-        checkNotNull(disposable);
-        checkNotNull(disposables);
+        Preconditions.checkNotNull(disposable);
+        Preconditions.checkNotNull(disposables);
         disposables.add(disposable);
-    }
-
-    private <T> T checkNotNull(T reference) {
-        if (reference == null) {
-            throw new NullPointerException();
-        }
-        return reference;
     }
 }
