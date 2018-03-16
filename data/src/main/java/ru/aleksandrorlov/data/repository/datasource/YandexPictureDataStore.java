@@ -12,5 +12,5 @@ import ru.aleksandrorlov.data.entity.YandexPictureEntity;
 public interface YandexPictureDataStore {
     Observable<List<YandexPictureEntity>> yandexPictureEntityList();
 
-    Observable<YandexPictureEntity> yandexPictureEntity(final int yandexPictureId);
+    Observable<YandexPictureEntity> yandexPictureEntity(final long yandexPictureId);
 }
