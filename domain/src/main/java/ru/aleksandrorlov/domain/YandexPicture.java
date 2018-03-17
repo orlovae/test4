@@ -5,16 +5,16 @@ package ru.aleksandrorlov.domain;
  */
 
 public class YandexPicture {
-    private final int yandexPictureId;
+    private final long yandexPictureId;
 
-    public YandexPicture(int yandexPictureId) {
+    public YandexPicture(long yandexPictureId) {
         this.yandexPictureId = yandexPictureId;
     }
 
     private String url;
     private String request;
 
-    public int getYandexPictureId() {
+    public long getYandexPictureId() {
         return yandexPictureId;
     }
 

@@ -1,5 +1,7 @@
 package ru.aleksandrorlov.domain.interactor;
 
+import javax.inject.Inject;
+
 import io.reactivex.Observable;
 import ru.aleksandrorlov.domain.YandexPicture;
 import ru.aleksandrorlov.domain.executor.PostExecutionThread;
@@ -30,13 +32,13 @@ public class GetYandexPictureDetails extends UseCase<YandexPicture, GetYandexPic
 
     public static final class Params {
 
-        private final int yandexPictureId;
+        private final long yandexPictureId;
 
-        private Params(int yandexPictureId) {
+        private Params(long yandexPictureId) {
             this.yandexPictureId = yandexPictureId;
         }
 
-        public static Params forYandexPicture(int yandexPictureId) {
+        public static Params forYandexPicture(long yandexPictureId) {
             return new Params(yandexPictureId);
         }
     }
