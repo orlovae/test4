@@ -10,16 +10,16 @@ import ru.aleksandrorlov.data.database.YandexPictureDataBase;
 @Singleton
 public class YandexPictureDataStoreFactory {
 
-    private final YandexPictureDataBase dataBase;
+    private final YandexPictureDataBase yandexPictureDataBase;
 
-    public YandexPictureDataStoreFactory(YandexPictureDataBase dataBase) {
-        this.dataBase = dataBase;
+    public YandexPictureDataStoreFactory(YandexPictureDataBase yandexPictureDataBase) {
+        this.yandexPictureDataBase = yandexPictureDataBase;
     }
     public YandexPictureDataStore create(long yandexPictureId) {
         YandexPictureDataStore yandexPictureDataStore;
 
-        if (this.dataBase.contains(yandexPictureId)) {
-            yandexPictureDataStore = new DBYandexPictureDataStore(dataBase);
+        if (this.yandexPictureDataBase.contains(yandexPictureId)) {
+            yandexPictureDataStore = new DBYandexPictureDataStore(yandexPictureDataBase);
         } else {
             yandexPictureDataStore = createCloudYandexPictureDataStore();
         }

@@ -11,19 +11,19 @@ import ru.aleksandrorlov.data.entity.YandexPictureEntity;
  */
 
 public class DBYandexPictureDataStore implements YandexPictureDataStore {
-    private final YandexPictureDataBase dataBase;
+    private final YandexPictureDataBase yandexPictureDataBase;
 
-    public DBYandexPictureDataStore(YandexPictureDataBase dataBase) {
-        this.dataBase = dataBase;
+    public DBYandexPictureDataStore(YandexPictureDataBase yandexPictureDataBase) {
+        this.yandexPictureDataBase = yandexPictureDataBase;
     }
 
     @Override
     public Observable<List<YandexPictureEntity>> yandexPictureEntityList() {
-        return Observable.fromArray(this.dataBase.getYandexPictureListAll());
+        return Observable.fromArray(this.yandexPictureDataBase.getYandexPictureListAll());
     }
 
     @Override
     public Observable<YandexPictureEntity> yandexPictureEntity(long yandexPictureId) {
-        return Observable.just(this.dataBase.getYandexPicture(yandexPictureId));
+        return Observable.just(this.yandexPictureDataBase.getYandexPicture(yandexPictureId));
     }
 }

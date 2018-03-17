@@ -18,25 +18,29 @@ import ru.aleksandrorlov.domain.repository.YandexPictureRepository;
 
 @Singleton
 public class YandexPictureDataRepository implements YandexPictureRepository {
-    private final YandexPictureDataStoreFactory factory;
-    private final YandexPictureEntityDataMapper mapper;
+    private final YandexPictureDataStoreFactory yandexPictureDataStoreFactory;
+    private final YandexPictureEntityDataMapper yandexPictureEntityDataMapper;
 
     @Inject
-    public YandexPictureDataRepository(YandexPictureDataStoreFactory factory,
-                                       YandexPictureEntityDataMapper mapper) {
-        this.factory = factory;
-        this.mapper = mapper;
+    public YandexPictureDataRepository(YandexPictureDataStoreFactory yandexPictureDataStoreFactory,
+                                       YandexPictureEntityDataMapper yandexPictureEntityDataMapper) {
+        this.yandexPictureDataStoreFactory = yandexPictureDataStoreFactory;
+        this.yandexPictureEntityDataMapper = yandexPictureEntityDataMapper;
     }
 
     @Override
     public Observable<List<YandexPicture>> yandexPictures() {
-        final YandexPictureDataStore dataStore = this.factory.createCloudYandexPictureDataStore();
-        return dataStore.yandexPictureEntityList().map(this.mapper::transform);
+        final YandexPictureDataStore dataStore =
+                this.yandexPictureDataStoreFactory.createCloudYandexPictureDataStore();
+        return
+                dataStore.yandexPictureEntityList().map(this.yandexPictureEntityDataMapper::transform);
     }
 
     @Override
     public Observable<YandexPicture> yandexPicture(long yandexPictureId) {
-        final YandexPictureDataStore dataStore = this.factory.create(yandexPictureId);
-        return dataStore.yandexPictureEntity(yandexPictureId).map(this.mapper::transform);
+        final YandexPictureDataStore dataStore =
+                this.yandexPictureDataStoreFactory.create(yandexPictureId);
+        return
+                dataStore.yandexPictureEntity(yandexPictureId).map(this.yandexPictureEntityDataMapper::transform);
     }
 }
