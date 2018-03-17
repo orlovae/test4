@@ -41,6 +41,11 @@ public class YandexPictureDataBaseImpl implements YandexPictureDataBase {
     }
 
     @Override
+    public boolean contains(long yandexPictureId) {
+        return getYandexPicture(yandexPictureId) != null ? true : false;
+    }
+
+    @Override
     public YandexPictureEntity getYandexPicture(long yandexPictureId) {
         return YandexPictureEntity.findById(YandexPictureEntity.class, yandexPictureId);
     }

@@ -6,7 +6,7 @@ import com.orm.SugarRecord;
  * Created by alex on 16.03.18.
  */
 
-public class YandexPictureEntity extends SugarRecord<YandexPictureEntity> {
+public class YandexPictureEntity extends SugarRecord {
     private long yandexPictureId;
     private String url;
     private String request;

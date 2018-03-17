@@ -1,6 +1,5 @@
 package ru.aleksandrorlov.data.repository.datasource;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.Observable;
@@ -12,19 +11,19 @@ import ru.aleksandrorlov.data.entity.YandexPictureEntity;
  */
 
 public class DBYandexPictureDataStore implements YandexPictureDataStore {
-    private final YandexPictureDataBase yandexPictureDataBase;
+    private final YandexPictureDataBase dataBase;
 
-    public DBYandexPictureDataStore(YandexPictureDataBase yandexPictureDataBase) {
-        this.yandexPictureDataBase = yandexPictureDataBase;
+    public DBYandexPictureDataStore(YandexPictureDataBase dataBase) {
+        this.dataBase = dataBase;
     }
 
     @Override
     public Observable<List<YandexPictureEntity>> yandexPictureEntityList() {
-        return Observable.fromArray(this.yandexPictureDataBase.getYandexPictureListAll());
+        return Observable.fromArray(this.dataBase.getYandexPictureListAll());
     }
 
     @Override
     public Observable<YandexPictureEntity> yandexPictureEntity(long yandexPictureId) {
-        return Observable.just(this.yandexPictureDataBase.getYandexPicture(yandexPictureId));
+        return Observable.just(this.dataBase.getYandexPicture(yandexPictureId));
     }
 }
