@@ -1,7 +1,7 @@
 package ru.aleksandrorlov.test4.view.adapter;
 
 import android.content.Context;
-import android.support.v4.content.ContextCompat;
+import android.graphics.Point;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,10 +9,14 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.List;
 
 import ru.aleksandrorlov.test4.R;
 import ru.aleksandrorlov.test4.model.YandexPictureModel;
+
+import static ru.aleksandrorlov.test4.Constant.COMPRESSION_PICTURE;
 
 /**
  * Created by alex on 17.03.18.
@@ -23,11 +27,14 @@ public class RecyclerViewDialogFragment extends
 {
     private final Context context;
     private final List<YandexPictureModel> yandexPictureModelList;
+    private final Point screenSize;
 
     public RecyclerViewDialogFragment(Context context,
-                                      List<YandexPictureModel> yandexPictureModelList) {
+                                      List<YandexPictureModel> yandexPictureModelList,
+                                      Point screenSize) {
         this.context = context;
         this.yandexPictureModelList = yandexPictureModelList;
+        this.screenSize = screenSize;
     }
 
     @Override
@@ -42,7 +49,19 @@ public class RecyclerViewDialogFragment extends
         YandexPictureModel yandexPictureModel = yandexPictureModelList.get(position);
 
         holder.textViewRequest.setText(yandexPictureModel.getRequest());
-        holder.imageView.setImageDrawable(ContextCompat.getDrawable(context, flag));
+
+        String url = yandexPictureModel.getUrl();
+        if (url.equals("")) {
+            url = Integer.toString(R.drawable.error_download_image);
+        }
+
+        Picasso.with(context)
+                .load(url)
+                .resize((int)Math.round(screenSize.x * COMPRESSION_PICTURE),
+                        (int)Math.round(screenSize.y * COMPRESSION_PICTURE))
+                .placeholder(R.drawable.progress_animation)
+                .error(R.drawable.error_download_image)
+                .into(holder.imageView);
     }
 
     @Override

@@ -2,12 +2,14 @@ package ru.aleksandrorlov.test4.view.activity;
 
 
 import android.graphics.Color;
+import android.graphics.Point;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.View;
 
@@ -57,7 +59,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void initRecyclerView() {
         RecyclerViewDialogFragment adapter = new RecyclerViewDialogFragment(this,
-                null);
+                null,
+                getScreenSize());
+
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
@@ -81,5 +85,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                     }
                 }));
+    }
+
+    private Point getScreenSize() {
+        DisplayMetrics metrics;
+        metrics = new DisplayMetrics();
+        this.getWindowManager().getDefaultDisplay().getMetrics(metrics);
+        int width = metrics.heightPixels;
+        int height = metrics.widthPixels;
+
+        boolean isLandscape = width > height;
+
+        if (!isLandscape) {
+            width = metrics.widthPixels;
+            height = metrics.heightPixels;
+        }
+        return new Point(width, height);
     }
 }
