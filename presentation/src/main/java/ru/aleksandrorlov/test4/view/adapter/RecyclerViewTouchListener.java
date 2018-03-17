@@ -12,7 +12,7 @@ import android.view.View;
 
 public class RecyclerViewTouchListener implements RecyclerView.OnItemTouchListener {
     private final GestureDetector mGestureDetector;
-    private IRecyclerViewClickListener mListener;
+    private final IRecyclerViewClickListener mListener;
 
     private final String TAG = this.getClass().getSimpleName();
 
