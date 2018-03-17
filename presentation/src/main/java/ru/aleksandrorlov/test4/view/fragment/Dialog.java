@@ -2,6 +2,7 @@ package ru.aleksandrorlov.test4.view.fragment;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Point;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
@@ -10,15 +11,20 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 
 import java.util.ArrayList;
 
 import ru.aleksandrorlov.test4.R;
+
+import static android.content.Context.WINDOW_SERVICE;
 
 /**
  * Created by alex on 17.03.18.
@@ -48,10 +54,6 @@ public class Dialog extends DialogFragment {
         View view = inflater.inflate(R.layout.dialog_fragment, null);
 
         initViews(view);
-        //TODO заменить хардкор на полный экран
-        int width = getResources().getDimensionPixelSize(R.dimen.cp_dialog_width);
-        int height = getResources().getDimensionPixelSize(R.dimen.cp_dialog_height);
-        getDialog().getWindow().setLayout(width, height);
 
         return view;
     }
@@ -95,5 +97,20 @@ public class Dialog extends DialogFragment {
     @Override
     public void onDetach() {
         super.onDetach();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        Point size = new Point();
+        WindowManager windowManager = (WindowManager) getActivity().getSystemService(WINDOW_SERVICE);
+        windowManager.getDefaultDisplay().getSize(size);
+        int widthScreen = size.x;
+        int heightScreen = size.y;
+
+        Window window = getDialog().getWindow();
+        window.setLayout(widthScreen, heightScreen);
+        window.setGravity(Gravity.CENTER);
     }
 }
