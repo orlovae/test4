@@ -2,13 +2,16 @@ package ru.aleksandrorlov.test4.view.activity;
 
 
 import android.graphics.Color;
+import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.Toast;
 
 import ru.aleksandrorlov.test4.R;
 import ru.aleksandrorlov.test4.view.activity.view.FloatingActionButton;
+import ru.aleksandrorlov.test4.view.fragment.Dialog;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     private FloatingActionButton fab;
@@ -37,9 +40,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.fab:
-                break;
-        }
+        startDialog();
+    }
+
+    private void startDialog() {
+        DialogFragment dialog = new Dialog();
+        dialog.show(getSupportFragmentManager(), null);
     }
 }
