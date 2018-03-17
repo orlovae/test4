@@ -20,7 +20,7 @@ public class DBYandexPictureDataStore implements YandexPictureDataStore {
 
     @Override
     public Observable<List<YandexPictureEntity>> yandexPictureEntityList() {
-        return null;
+        return Observable.fromArray(this.yandexPictureDataBase.getYandexPictureListAll());
     }
 
     @Override

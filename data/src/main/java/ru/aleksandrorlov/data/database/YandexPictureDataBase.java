@@ -16,5 +16,5 @@ public interface YandexPictureDataBase {
     void delete(final long yandexPictureId);
 
     YandexPictureEntity getYandexPicture(final long yandexPictureId);
-    List<YandexPictureEntity> getYandexPictureList();
+    List<YandexPictureEntity> getYandexPictureListAll();
 }

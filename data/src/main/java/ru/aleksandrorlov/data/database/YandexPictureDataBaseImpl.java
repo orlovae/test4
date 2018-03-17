@@ -46,7 +46,7 @@ public class YandexPictureDataBaseImpl implements YandexPictureDataBase {
     }
 
     @Override
-    public List<YandexPictureEntity> getYandexPictureList() {
+    public List<YandexPictureEntity> getYandexPictureListAll() {
         return YandexPictureEntity.listAll(YandexPictureEntity.class);
     }
 }
