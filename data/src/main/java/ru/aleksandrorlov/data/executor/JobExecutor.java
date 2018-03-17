@@ -5,6 +5,9 @@ import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+
 import io.reactivex.annotations.NonNull;
 import ru.aleksandrorlov.domain.executor.ThreadExecutor;
 

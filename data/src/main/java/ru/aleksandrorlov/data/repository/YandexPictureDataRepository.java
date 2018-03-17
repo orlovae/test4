@@ -2,6 +2,9 @@ package ru.aleksandrorlov.data.repository;
 
 import java.util.List;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+
 import io.reactivex.Observable;
 import ru.aleksandrorlov.data.entity.mapper.YandexPictureEntityDataMapper;
 import ru.aleksandrorlov.data.repository.datasource.YandexPictureDataStore;

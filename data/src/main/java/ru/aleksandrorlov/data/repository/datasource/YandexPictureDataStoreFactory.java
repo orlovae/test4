@@ -1,5 +1,7 @@
 package ru.aleksandrorlov.data.repository.datasource;
 
+import javax.inject.Singleton;
+
 import ru.aleksandrorlov.data.database.YandexPictureDataBase;
 
 /**

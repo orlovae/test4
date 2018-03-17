@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+
 import ru.aleksandrorlov.data.entity.YandexPictureEntity;
 import ru.aleksandrorlov.domain.YandexPicture;
 

@@ -1,5 +1,7 @@
 package ru.aleksandrorlov.domain.interactor;
 
+import javax.inject.Inject;
+
 import io.reactivex.Observable;
 import ru.aleksandrorlov.domain.YandexPicture;
 import ru.aleksandrorlov.domain.executor.PostExecutionThread;
