@@ -6,9 +6,6 @@ import android.graphics.Point;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
-import android.support.v7.widget.DividerItemDecoration;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.Gravity;
@@ -20,8 +17,6 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 
-import java.util.ArrayList;
-
 import ru.aleksandrorlov.test4.R;
 
 import static android.content.Context.WINDOW_SERVICE;
@@ -30,7 +25,8 @@ import static android.content.Context.WINDOW_SERVICE;
  * Created by alex on 17.03.18.
  */
 
-public class Dialog extends DialogFragment {
+public class Dialog extends DialogFragment implements View.OnClickListener {
+    private Button replaceButton, addButton;
 
     @Override
     public void onAttach(Context context) {
@@ -55,13 +51,15 @@ public class Dialog extends DialogFragment {
 
         initViews(view);
 
+        buttonBehavior();
+
         return view;
     }
 
     private void initViews(View view) {
         EditText searchEditText = (EditText) view.findViewById(R.id.yandex_picture_search);
-        Button replaceButton = (Button) view.findViewById(R.id.replace_button);
-        Button addButton = (Button) view.findViewById(R.id.add_button);
+        replaceButton = (Button) view.findViewById(R.id.replace_button);
+        addButton = (Button) view.findViewById(R.id.add_button);
 
         searchEditText.addTextChangedListener(new TextWatcher() {
 
@@ -82,6 +80,23 @@ public class Dialog extends DialogFragment {
 
     private void search(String text) {
 
+    }
+
+    private void buttonBehavior() {
+        replaceButton.setOnClickListener(this);
+        addButton.setOnClickListener(this);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.replace_button:
+
+                break;
+            case R.id.add_button:
+
+                break;
+        }
     }
 
     @Override
@@ -106,11 +121,9 @@ public class Dialog extends DialogFragment {
         Point size = new Point();
         WindowManager windowManager = (WindowManager) getActivity().getSystemService(WINDOW_SERVICE);
         windowManager.getDefaultDisplay().getSize(size);
-        int widthScreen = size.x;
-        int heightScreen = size.y;
 
         Window window = getDialog().getWindow();
-        window.setLayout(widthScreen, heightScreen);
+        window.setLayout(size.x, size.y);
         window.setGravity(Gravity.CENTER);
     }
 }
