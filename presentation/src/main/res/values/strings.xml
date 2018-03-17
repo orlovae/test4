@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">test4</string>
+
+    <!-- Dialog Fragment -->
+    <string name="search">Найти</string>
+    <string name="replace">Поменять картинку</string>
+    <string name="add">Добавить картинку в коллекцию</string>
 </resources>
