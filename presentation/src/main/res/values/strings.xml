@@ -5,4 +5,9 @@
     <string name="search">Найти</string>
     <string name="replace">Поменять картинку</string>
     <string name="add">Добавить картинку в коллекцию</string>
+
+    <!-- Error Message factory -->
+    <string name="exception_message_generic">Ошибка приложения</string>
+    <string name="exception_message_no_connection">Нет подключения к интернету </string>
+    <string name="exception_message_yandex_picture_not_found">Не удается получить картинку. Проверьте подключение к интернету </string>
 </resources>

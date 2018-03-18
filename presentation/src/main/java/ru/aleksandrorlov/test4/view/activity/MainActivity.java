@@ -1,6 +1,7 @@
 package ru.aleksandrorlov.test4.view.activity;
 
 
+import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Point;
 import android.support.v4.app.DialogFragment;
@@ -12,16 +13,31 @@ import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.Toast;
+
+import java.util.Collection;
+
+import javax.inject.Inject;
 
 import ru.aleksandrorlov.test4.R;
+import ru.aleksandrorlov.test4.model.YandexPictureModel;
+import ru.aleksandrorlov.test4.presenter.YandexPictureListPresenter;
+import ru.aleksandrorlov.test4.view.YandexPictureListView;
 import ru.aleksandrorlov.test4.view.activity.view.FloatingActionButton;
 import ru.aleksandrorlov.test4.view.adapter.IRecyclerViewClickListener;
-import ru.aleksandrorlov.test4.view.adapter.RecyclerViewDialogFragment;
+import ru.aleksandrorlov.test4.view.adapter.YandexPictureAdapter;
 import ru.aleksandrorlov.test4.view.adapter.RecyclerViewTouchListener;
 import ru.aleksandrorlov.test4.view.fragment.Dialog;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener,
+        YandexPictureListView {
     private FloatingActionButton fab;
+    private RecyclerView recyclerView;
+
+    @Inject
+    YandexPictureListPresenter yandexPictureListPresenter;
+    @Inject
+    YandexPictureAdapter yandexPictureAdapter;
 
 
     @Override
@@ -32,6 +48,45 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         initFAB();
         FABBehavior();
         initRecyclerView();
+
+        this.yandexPictureListPresenter.setView(this);
+        if (savedInstanceState == null) {
+            this.loadYandexPictureList();
+        }
+    }
+
+    @Override public void onResume() {
+        super.onResume();
+        this.yandexPictureListPresenter.resume();
+    }
+
+    @Override public void onPause() {
+        super.onPause();
+        this.yandexPictureListPresenter.pause();
+    }
+
+    @Override public void onDestroy() {
+        super.onDestroy();
+        recyclerView.setAdapter(null);
+        this.yandexPictureListPresenter.destroy();
+    }
+
+    @Override
+    public void showError(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public Context context() {
+        return getApplicationContext();
+    }
+
+    @Override
+    public void renderYandexPictureList(Collection<YandexPictureModel> yandexPictureModelCollection) {
+        if (yandexPictureModelCollection != null) {
+            this.yandexPictureAdapter.setScreenSize(getScreenSize());
+            this.yandexPictureAdapter.setYandexPictureModelCollection(yandexPictureModelCollection);
+        }
     }
 
     private void initFAB() {
@@ -58,11 +113,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void initRecyclerView() {
-        RecyclerViewDialogFragment adapter = new RecyclerViewDialogFragment(this,
-                null,
-                getScreenSize());
-
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+        recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -70,7 +121,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         recyclerView.addItemDecoration(new DividerItemDecoration(this,
                 DividerItemDecoration.VERTICAL));
 
-        recyclerView.setAdapter(adapter);
+        recyclerView.setAdapter(yandexPictureAdapter);
         recyclerView.setLayoutManager(layoutManager);
 
         recyclerView.addOnItemTouchListener(new RecyclerViewTouchListener(this, recyclerView,
@@ -101,5 +152,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             height = metrics.heightPixels;
         }
         return new Point(width, height);
+    }
+
+    private void loadYandexPictureList() {
+        this.yandexPictureListPresenter.initialize();
     }
 }

@@ -5,4 +5,7 @@ package ru.aleksandrorlov.test4.presenter;
  */
 
 public interface Presenter {
+    void resume();
+    void pause();
+    void destroy();
 }
