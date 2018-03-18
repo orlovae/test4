@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Toast;
 
 /**
  * Created by alex on 17.03.18.
@@ -16,7 +17,7 @@ public class RecyclerViewTouchListener implements RecyclerView.OnItemTouchListen
 
     private final String TAG = this.getClass().getSimpleName();
 
-    public RecyclerViewTouchListener(Context context, final RecyclerView recyclerView,
+    public RecyclerViewTouchListener(final Context context, final RecyclerView recyclerView,
                                      final IRecyclerViewClickListener listener) {
         mListener = listener;
 

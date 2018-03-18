@@ -159,7 +159,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                     @Override
                     public void onLongClick(View view, int position) {
-
+                        yandexPictureListPresenter.onLongPress(position);
                     }
                 }));
     }

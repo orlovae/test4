@@ -1,6 +1,7 @@
 package ru.aleksandrorlov.test4.presenter;
 
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 import java.util.Collection;
 import java.util.List;
@@ -21,7 +22,8 @@ import ru.aleksandrorlov.test4.view.YandexPictureListView;
  * Created by alex on 17.03.18.
  */
 
-public class YandexPictureListPresenter implements Presenter{
+public class YandexPictureListPresenter implements Presenter {
+    private final String TAG = this.getClass().getSimpleName();
 
     private YandexPictureListView yandexPictureListView;
 
@@ -53,9 +55,6 @@ public class YandexPictureListPresenter implements Presenter{
         this.loadYandexPictureList();
     }
 
-    /**
-     * Loads all users.
-     */
     private void loadYandexPictureList() {
         this.getYandexPictureList();
     }
@@ -74,6 +73,11 @@ public class YandexPictureListPresenter implements Presenter{
         final Collection<YandexPictureModel> yandexPictureModelCollection =
                 this.yandexPictureDataMapper.transform(yandexPictureCollection);
         this.yandexPictureListView.renderYandexPictureList(yandexPictureModelCollection);
+    }
+
+    public void onLongPress(int itemPosition) {
+        Log.d(TAG, "onLongPress: itemPosition = " + itemPosition);
+        //TODO удалять из базы данных по itemPosition
     }
 
     private final class YandexPictureListObserver extends DefaultObserver<List<YandexPicture>> {
