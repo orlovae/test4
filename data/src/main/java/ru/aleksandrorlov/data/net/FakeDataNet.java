@@ -1,6 +1,9 @@
 package ru.aleksandrorlov.data.net;
 
+import android.util.Log;
+
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
@@ -11,18 +14,19 @@ import ru.aleksandrorlov.data.entity.YandexPictureEntity;
  */
 
 public class FakeDataNet {
+    private final String TAG = this.getClass().getSimpleName();
 
     private static final YandexPictureEntity[] FAKE_DATA = {
-            new YandexPictureEntity("http://knigi.prof-press.ru/pub/files/infuso_eshop_model_itemphoto/00/12557/90dec041_c686_11e1_81d3_5ef3fc502493_.jpeg", "дереья"),
-            new YandexPictureEntity("https://7kun.kz/wp-content/uploads/2015/09/1404831601023.jpg", "дереья"),
-            new YandexPictureEntity("https://www.sunhome.ru/i/wallpapers/119/osennee-derevo.960x540.jpg", "дереья"),
-            new YandexPictureEntity("http://oboi-korea.ru/upload/iblock/660/51249.jpg", "дереья"),
-            new YandexPictureEntity("http://classpic.ru/wp-content/uploads/Neveroyatno-krasivoe-derevo.jpg", "дереья"),
-            new YandexPictureEntity("http://namonitore.ru/uploads/catalog/leto/raskidistoe_zelenoe_derevo_1280.jpg", "дереья"),
-            new YandexPictureEntity("http://gooodnews.ru/images/trees/trees15.jpg", "дереья"),
-            new YandexPictureEntity("https://grandgames.net/puzzle/full/derevya_1.jpg", "дереья"),
-            new YandexPictureEntity("https://fullhdpictures.com/wp-content/uploads/2015/04/Amazing-Trees-Wallpapers.jpg", "дереья"),
-            new YandexPictureEntity("http://st.gdefon.com/wallpapers_original/s/100886_osen_derevya_opadayushhie_listya_dorozhka_3872x2572_(www.GdeFon.ru).jpg", "дереья"),
+            new YandexPictureEntity("http://knigi.prof-press.ru/pub/files/infuso_eshop_model_itemphoto/00/12557/90dec041_c686_11e1_81d3_5ef3fc502493_.jpeg", "деревья"),
+            new YandexPictureEntity("https://7kun.kz/wp-content/uploads/2015/09/1404831601023.jpg", "деревья"),
+            new YandexPictureEntity("https://www.sunhome.ru/i/wallpapers/119/osennee-derevo.960x540.jpg", "деревья"),
+            new YandexPictureEntity("http://oboi-korea.ru/upload/iblock/660/51249.jpg", "деревья"),
+            new YandexPictureEntity("http://classpic.ru/wp-content/uploads/Neveroyatno-krasivoe-derevo.jpg", "деревья"),
+            new YandexPictureEntity("http://namonitore.ru/uploads/catalog/leto/raskidistoe_zelenoe_derevo_1280.jpg", "деревья"),
+            new YandexPictureEntity("http://gooodnews.ru/images/trees/trees15.jpg", "деревья"),
+            new YandexPictureEntity("https://grandgames.net/puzzle/full/derevya_1.jpg", "деревья"),
+            new YandexPictureEntity("https://fullhdpictures.com/wp-content/uploads/2015/04/Amazing-Trees-Wallpapers.jpg", "деревья"),
+            new YandexPictureEntity("http://st.gdefon.com/wallpapers_original/s/100886_osen_derevya_opadayushhie_listya_dorozhka_3872x2572_(www.GdeFon.ru).jpg", "деревья"),
             new YandexPictureEntity("https://s1.1zoom.ru/big7/220/Grasslands_Camomiles_419661.jpg", "лето"),
             new YandexPictureEntity("http://zoozel.ru/gallery/images/617668_nadpis-leto-v-kartinkah.jpg", "лето"),
             new YandexPictureEntity("http://s4.thingpic.com/images/nS/rbNoaxqRCwMHg6dWAtdcj6DD.jpeg", "лето"),
@@ -65,9 +69,6 @@ public class FakeDataNet {
     }
 
     List<YandexPictureEntity> getYandexPictureEntityList() {
-        List<YandexPictureEntity> yandexPictureEntityList =
-                new ArrayList<>();
-        yandexPictureEntityList.toArray(FAKE_DATA);
-        return yandexPictureEntityList;
+        return new ArrayList<>(Arrays.asList(FAKE_DATA));
     }
 }

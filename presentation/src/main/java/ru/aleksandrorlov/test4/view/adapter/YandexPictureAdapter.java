@@ -1,7 +1,6 @@
 package ru.aleksandrorlov.test4.view.adapter;
 
 import android.content.Context;
-import android.graphics.Point;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,7 +19,6 @@ import javax.inject.Inject;
 import ru.aleksandrorlov.test4.R;
 import ru.aleksandrorlov.test4.model.YandexPictureModel;
 
-import static ru.aleksandrorlov.test4.Constant.COMPRESSION_PICTURE;
 import static ru.aleksandrorlov.test4.Constant.EXCEPTION_NULL_LIST;
 
 /**
@@ -32,14 +30,12 @@ public class YandexPictureAdapter extends
 
     private final Context context;
 
-    private Point screenSize;
     private List<YandexPictureModel> yandexPictureModelList;
 
     @Inject
     public YandexPictureAdapter(Context context) {
         this.context = context;
         this.yandexPictureModelList = Collections.emptyList();
-        this.screenSize = null;
     }
 
     @Override
@@ -60,10 +56,8 @@ public class YandexPictureAdapter extends
             url = Integer.toString(R.drawable.error_download_image);
         }
 
-        Picasso.with(context)
+        Picasso.get()
                 .load(url)
-                .resize((int)Math.round(screenSize.x * COMPRESSION_PICTURE),
-                        (int)Math.round(screenSize.y * COMPRESSION_PICTURE))
                 .placeholder(R.drawable.progress_animation)
                 .error(R.drawable.error_download_image)
                 .into(holder.imageView);
@@ -72,10 +66,6 @@ public class YandexPictureAdapter extends
     @Override
     public int getItemCount() {
         return (yandexPictureModelList == null) ? 0 : yandexPictureModelList.size();
-    }
-
-    public void setScreenSize(Point screenSize) {
-        this.screenSize = screenSize;
     }
 
     public void setYandexPictureModelCollection(Collection<YandexPictureModel> yandexPictureModelCollection) {
