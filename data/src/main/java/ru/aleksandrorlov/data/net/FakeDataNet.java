@@ -1,5 +1,7 @@
 package ru.aleksandrorlov.data.net;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import ru.aleksandrorlov.data.entity.YandexPictureEntity;
@@ -60,5 +62,12 @@ public class FakeDataNet {
     YandexPictureEntity getYandexPictureEntity() {
         Random random = new Random();
         return FAKE_DATA[random.nextInt(FAKE_DATA.length - 1)];
+    }
+
+    List<YandexPictureEntity> getYandexPictureEntityList() {
+        List<YandexPictureEntity> yandexPictureEntityList =
+                new ArrayList<>();
+        yandexPictureEntityList.toArray(FAKE_DATA);
+        return yandexPictureEntityList;
     }
 }

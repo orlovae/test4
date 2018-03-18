@@ -26,7 +26,24 @@ public class ParseNetImpl implements ParseNet {
 
     @Override
     public Observable<List<YandexPictureEntity>> yandexPictureEntityList() {
-        return null;
+        return Observable.create(emitter -> {
+            if (isThereInternetConnection()){
+                try {
+                    FakeDataNet fakeDataNet = new FakeDataNet();
+                    List<YandexPictureEntity> entityList = fakeDataNet.getYandexPictureEntityList();
+                    if (entityList != null) {
+                        emitter.onNext(entityList);
+                        emitter.onComplete();
+                    } else {
+                        emitter.onError(new NetworkConnectionException());
+                    }
+                } catch (Exception e) {
+                    emitter.onError(new NetworkConnectionException(e.getCause()));
+                }
+            } else {
+                emitter.onError(new NetworkConnectionException());
+            }
+        });
     }
 
     @Override

@@ -28,8 +28,8 @@ import static ru.aleksandrorlov.test4.Constant.EXCEPTION_NULL_LIST;
  */
 
 public class YandexPictureAdapter extends
-        RecyclerView.Adapter<YandexPictureAdapter.ViewHolder>
-{
+        RecyclerView.Adapter<YandexPictureAdapter.ViewHolder> {
+
     private final Context context;
 
     private Point screenSize;

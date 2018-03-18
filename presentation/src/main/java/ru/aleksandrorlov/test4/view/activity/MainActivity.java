@@ -11,6 +11,7 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Toast;
@@ -19,7 +20,13 @@ import java.util.Collection;
 
 import javax.inject.Inject;
 
+import ru.aleksandrorlov.test4.AndroidApplication;
 import ru.aleksandrorlov.test4.R;
+import ru.aleksandrorlov.test4.di.HasComponent;
+import ru.aleksandrorlov.test4.di.components.ApplicationComponent;
+import ru.aleksandrorlov.test4.di.components.DaggerYandexPictureComponent;
+import ru.aleksandrorlov.test4.di.components.YandexPictureComponent;
+import ru.aleksandrorlov.test4.di.modules.ActivityModule;
 import ru.aleksandrorlov.test4.model.YandexPictureModel;
 import ru.aleksandrorlov.test4.presenter.YandexPictureListPresenter;
 import ru.aleksandrorlov.test4.view.YandexPictureListView;
@@ -30,9 +37,12 @@ import ru.aleksandrorlov.test4.view.adapter.RecyclerViewTouchListener;
 import ru.aleksandrorlov.test4.view.fragment.Dialog;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener,
-        YandexPictureListView {
+        YandexPictureListView, HasComponent<YandexPictureComponent> {
+
+    private final String TAG = this.getClass().getSimpleName();
     private FloatingActionButton fab;
     private RecyclerView recyclerView;
+    private YandexPictureComponent yandexPictureComponent;
 
     @Inject
     YandexPictureListPresenter yandexPictureListPresenter;
@@ -45,14 +55,31 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        this.yandexPictureComponent = DaggerYandexPictureComponent.builder()
+                .applicationComponent(getApplicationComponent())
+                .activityModule(getActivityModule())
+                .build();
+
+        this.getComponent().inject(this);
+
         initFAB();
         FABBehavior();
         initRecyclerView();
+
+        Log.d(TAG, "onCreate: yandexPictureListPresenter" + yandexPictureListPresenter.toString());
 
         this.yandexPictureListPresenter.setView(this);
         if (savedInstanceState == null) {
             this.loadYandexPictureList();
         }
+    }
+
+    protected ApplicationComponent getApplicationComponent() {
+        return ((AndroidApplication) getApplication()).getApplicationComponent();
+    }
+
+    protected ActivityModule getActivityModule() {
+        return new ActivityModule(this);
     }
 
     @Override public void onResume() {
@@ -156,5 +183,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void loadYandexPictureList() {
         this.yandexPictureListPresenter.initialize();
+    }
+
+    @Override
+    public YandexPictureComponent getComponent() {
+        return yandexPictureComponent;
     }
 }

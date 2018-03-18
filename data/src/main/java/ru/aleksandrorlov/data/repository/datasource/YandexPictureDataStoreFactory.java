@@ -2,6 +2,7 @@ package ru.aleksandrorlov.data.repository.datasource;
 
 import android.content.Context;
 
+import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import ru.aleksandrorlov.data.database.YandexPictureDataBase;
@@ -16,6 +17,7 @@ public class YandexPictureDataStoreFactory {
     private final Context context;
     private final YandexPictureDataBase yandexPictureDataBase;
 
+    @Inject
     public YandexPictureDataStoreFactory(Context context,
                                          YandexPictureDataBase yandexPictureDataBase) {
         this.context = context.getApplicationContext();

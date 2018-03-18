@@ -19,7 +19,7 @@ public class CloudYandexPictureDataStore implements YandexPictureDataStore {
 
     @Override
     public Observable<List<YandexPictureEntity>> yandexPictureEntityList() {
-        return null;
+        return this.parseNet.yandexPictureEntityList();
     }
 
     @Override

@@ -5,6 +5,8 @@ import com.orm.SugarRecord;
 import java.util.Collection;
 import java.util.List;
 
+import javax.inject.Inject;
+
 import ru.aleksandrorlov.data.entity.YandexPictureEntity;
 
 /**
@@ -13,6 +15,9 @@ import ru.aleksandrorlov.data.entity.YandexPictureEntity;
 
 public class YandexPictureDataBaseImpl implements YandexPictureDataBase {
 
+    @Inject
+    public YandexPictureDataBaseImpl() {
+    }
 
     @Override
     public void put(YandexPictureEntity yandexPictureEntity) {

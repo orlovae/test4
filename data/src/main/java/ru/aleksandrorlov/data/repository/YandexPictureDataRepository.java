@@ -1,5 +1,7 @@
 package ru.aleksandrorlov.data.repository;
 
+import android.util.Log;
+
 import java.util.List;
 
 import javax.inject.Inject;
@@ -18,6 +20,7 @@ import ru.aleksandrorlov.domain.repository.YandexPictureRepository;
 
 @Singleton
 public class YandexPictureDataRepository implements YandexPictureRepository {
+    private final String TAG = this.getClass().getSimpleName();
     private final YandexPictureDataStoreFactory yandexPictureDataStoreFactory;
     private final YandexPictureEntityDataMapper yandexPictureEntityDataMapper;
 
@@ -32,6 +35,7 @@ public class YandexPictureDataRepository implements YandexPictureRepository {
     public Observable<List<YandexPicture>> yandexPictures() {
         final YandexPictureDataStore dataStore =
                 this.yandexPictureDataStoreFactory.createCloudYandexPictureDataStore();
+        Log.d(TAG, "yandexPictures: dataStore " + dataStore.toString());
         return
                 dataStore.yandexPictureEntityList().map(this.yandexPictureEntityDataMapper::transform);
     }
