@@ -37,4 +37,13 @@ public class YandexPictureModel {
     public void setRequest(String request) {
         this.request = request;
     }
+
+    @Override
+    public String toString() {
+        return "YandexPictureModel{" +
+                "yandexPictureId=" + yandexPictureId +
+                ", url='" + url + '\'' +
+                ", request='" + request + '\'' +
+                '}';
+    }
 }

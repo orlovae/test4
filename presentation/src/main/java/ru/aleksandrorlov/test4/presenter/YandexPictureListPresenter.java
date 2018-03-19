@@ -2,6 +2,7 @@ package ru.aleksandrorlov.test4.presenter;
 
 import android.support.annotation.NonNull;
 import android.util.Log;
+import android.widget.Toast;
 
 import java.util.Collection;
 import java.util.List;
@@ -12,6 +13,7 @@ import ru.aleksandrorlov.domain.YandexPicture;
 import ru.aleksandrorlov.domain.exception.DefaultErrorBundle;
 import ru.aleksandrorlov.domain.exception.ErrorBundle;
 import ru.aleksandrorlov.domain.interactor.DefaultObserver;
+import ru.aleksandrorlov.domain.interactor.DeleteYandexPicturefromDB;
 import ru.aleksandrorlov.domain.interactor.GetYandexPictureList;
 import ru.aleksandrorlov.test4.exeption.ErrorMessageFactory;
 import ru.aleksandrorlov.test4.mapper.YandexPictureDataMapper;
@@ -28,13 +30,16 @@ public class YandexPictureListPresenter implements Presenter {
     private YandexPictureListView yandexPictureListView;
 
     private final GetYandexPictureList getYandexPictureList;
+    private final DeleteYandexPicturefromDB deleteYandexPicturefromDB;
     private final YandexPictureDataMapper yandexPictureDataMapper;
 
 
     @Inject
     public YandexPictureListPresenter(GetYandexPictureList getYandexPictureList,
+                                      DeleteYandexPicturefromDB deleteYandexPicturefromDB,
                                       YandexPictureDataMapper yandexPictureDataMapper) {
         this.getYandexPictureList = getYandexPictureList;
+        this.deleteYandexPicturefromDB = deleteYandexPicturefromDB;
         this.yandexPictureDataMapper = yandexPictureDataMapper;
     }
 
@@ -69,6 +74,10 @@ public class YandexPictureListPresenter implements Presenter {
         this.yandexPictureListView.showError(errorMessage);
     }
 
+    private void showDeleteYandexPictureMessage() {
+        this.yandexPictureListView.showDeleteYandexPicture();
+    }
+
     private void showYandexPictureCollectionInView(Collection<YandexPicture> yandexPictureCollection) {
         final Collection<YandexPictureModel> yandexPictureModelCollection =
                 this.yandexPictureDataMapper.transform(yandexPictureCollection);
@@ -76,14 +85,34 @@ public class YandexPictureListPresenter implements Presenter {
     }
 
     public void onLongPress(long yandexPictureId) {
-        Log.d(TAG, "onLongPress: itemPosition = " + yandexPictureId);
-        //TODO удалять из базы данных по itemPosition
+        Log.d(TAG, "onLongPress: yandexPictureId = " + yandexPictureId);
+        this.deleteYandexPicturefromDB.execute(new DeleteYandexPictureObserver(),
+                DeleteYandexPicturefromDB.Params.forDeleteYandexPicture(yandexPictureId));
     }
 
     private final class YandexPictureListObserver extends DefaultObserver<List<YandexPicture>> {
         @Override
         public void onNext(List<YandexPicture> yandexPictureList) {
             YandexPictureListPresenter.this.showYandexPictureCollectionInView(yandexPictureList);
+        }
+
+        @Override
+        public void onError(Throwable exception) {
+            YandexPictureListPresenter.this.showErrorMessage(new DefaultErrorBundle((Exception) exception));
+        }
+
+        @Override
+        public void onComplete() {
+            super.onComplete();
+        }
+    }
+
+    private final class DeleteYandexPictureObserver extends DefaultObserver<Boolean> {
+        @Override
+        public void onNext(Boolean isDelete) {
+            if (isDelete) {
+                YandexPictureListPresenter.this.showDeleteYandexPictureMessage();
+            }
         }
 
         @Override

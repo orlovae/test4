@@ -2,6 +2,7 @@ package ru.aleksandrorlov.test4.view.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,6 +28,8 @@ import static ru.aleksandrorlov.test4.Constant.EXCEPTION_NULL_LIST;
 
 public class YandexPictureAdapter extends
         RecyclerView.Adapter<YandexPictureAdapter.ViewHolder> {
+
+    private final String TAG = this.getClass().getSimpleName();
 
     public interface OnItemLongClickListener {
         void onViewItemLongClicked(long yandexPictureId);
@@ -72,8 +75,12 @@ public class YandexPictureAdapter extends
             @Override
             public boolean onLongClick(View v) {
                 if (YandexPictureAdapter.this.onItemLongClickListener != null) {
+                    long l = yandexPictureModel.getYandexPictureId();
+                    Log.d(TAG, "onLongClick: " + yandexPictureModel.toString());
+
                     YandexPictureAdapter.this.onItemLongClickListener.
                             onViewItemLongClicked(yandexPictureModel.getYandexPictureId());
+
                 }
                 return false;
             }

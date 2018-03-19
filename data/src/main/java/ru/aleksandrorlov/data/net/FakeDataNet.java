@@ -68,7 +68,7 @@ public class FakeDataNet {
         return FAKE_DATA[random.nextInt(FAKE_DATA.length - 1)];
     }
 
-    List<YandexPictureEntity> getYandexPictureEntityList() {
+    public List<YandexPictureEntity> getYandexPictureEntityList() {
         return new ArrayList<>(Arrays.asList(FAKE_DATA));
     }
 }

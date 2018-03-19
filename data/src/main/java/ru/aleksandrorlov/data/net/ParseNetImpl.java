@@ -7,6 +7,7 @@ import android.net.NetworkInfo;
 import java.util.List;
 
 import io.reactivex.Observable;
+import ru.aleksandrorlov.data.database.YandexPictureDataBase;
 import ru.aleksandrorlov.data.entity.YandexPictureEntity;
 import ru.aleksandrorlov.data.exeption.NetworkConnectionException;
 
@@ -17,7 +18,7 @@ import ru.aleksandrorlov.data.exeption.NetworkConnectionException;
 public class ParseNetImpl implements ParseNet {
     private final Context context;
 
-    public ParseNetImpl(Context context) {
+    public ParseNetImpl(Context context, YandexPictureDataBase yandexPictureDataBase) {
         if (context == null) {
             throw new IllegalArgumentException("The constructor parameters cannot be null!!!");
         }
@@ -31,6 +32,7 @@ public class ParseNetImpl implements ParseNet {
                 try {
                     FakeDataNet fakeDataNet = new FakeDataNet();
                     List<YandexPictureEntity> entityList = fakeDataNet.getYandexPictureEntityList();
+
                     if (entityList != null) {
                         emitter.onNext(entityList);
                         emitter.onComplete();

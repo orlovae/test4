@@ -62,8 +62,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         FABBehavior();
         initRecyclerView();
 
-        Log.d(TAG, "onCreate: yandexPictureListPresenter" + yandexPictureListPresenter.toString());
-
         this.yandexPictureListPresenter.setView(this);
         if (savedInstanceState == null) {
             this.loadYandexPictureList();
@@ -95,6 +93,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     @Override
+    public void showDeleteYandexPicture() {
+        Toast.makeText(this, "Картинка удалена", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
     public void showError(String message) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
@@ -107,8 +110,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void renderYandexPictureList(Collection<YandexPictureModel> yandexPictureModelCollection) {
         if (yandexPictureModelCollection != null) {
-            Log.d(TAG, "renderYandexPictureList: yandexPictureModelCollection "
-             + yandexPictureModelCollection.size());
             this.yandexPictureAdapter.setYandexPictureModelCollection(yandexPictureModelCollection);
         }
     }
@@ -154,7 +155,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             new YandexPictureAdapter.OnItemLongClickListener() {
                 @Override
                 public void onViewItemLongClicked(long yandexPictureId) {
-                    yandexPictureListPresenter.onLongPress(yandexPictureId);
+                    //TODO Sugar не хочет работать. Причина, кажется контексте.
+//                    yandexPictureListPresenter.onLongPress(yandexPictureId);
                 }
             };
 

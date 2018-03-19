@@ -6,7 +6,7 @@ import com.orm.SugarRecord;
  * Created by alex on 16.03.18.
  */
 
-public class YandexPictureEntity extends SugarRecord {
+public class YandexPictureEntity extends SugarRecord<YandexPictureEntity> {
     private long yandexPictureId;
     private String url;
     private String request;
@@ -40,5 +40,15 @@ public class YandexPictureEntity extends SugarRecord {
 
     public void setRequest(String request) {
         this.request = request;
+    }
+
+    @Override
+    public String toString() {
+        return "YandexPictureEntity{" +
+                "yandexPictureId=" + yandexPictureId +
+                ", url='" + url + '\'' +
+                ", request='" + request + '\'' +
+                ", id=" + id +
+                '}';
     }
 }

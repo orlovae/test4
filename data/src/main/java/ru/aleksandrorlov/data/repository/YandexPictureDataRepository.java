@@ -8,6 +8,7 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import io.reactivex.Observable;
+import ru.aleksandrorlov.data.database.YandexPictureDataBase;
 import ru.aleksandrorlov.data.entity.mapper.YandexPictureEntityDataMapper;
 import ru.aleksandrorlov.data.repository.datasource.YandexPictureDataStore;
 import ru.aleksandrorlov.data.repository.datasource.YandexPictureDataStoreFactory;
@@ -35,7 +36,6 @@ public class YandexPictureDataRepository implements YandexPictureRepository {
     public Observable<List<YandexPicture>> yandexPictures() {
         final YandexPictureDataStore dataStore =
                 this.yandexPictureDataStoreFactory.createCloudYandexPictureDataStore();
-        Log.d(TAG, "yandexPictures: dataStore " + dataStore.toString());
         return
                 dataStore.yandexPictureEntityList().map(this.yandexPictureEntityDataMapper::transform);
     }
@@ -46,5 +46,12 @@ public class YandexPictureDataRepository implements YandexPictureRepository {
                 this.yandexPictureDataStoreFactory.create(yandexPictureId);
         return
                 dataStore.yandexPictureEntity(yandexPictureId).map(this.yandexPictureEntityDataMapper::transform);
+    }
+
+    @Override
+    public Observable<Boolean> deleteYandexPicture(long yandexPictureId) {
+        final YandexPictureDataBase yandexPictureDataBase =
+                this.yandexPictureDataStoreFactory.createYandexPictureDataBase();
+        return yandexPictureDataBase.delete(yandexPictureId);
     }
 }
