@@ -28,9 +28,15 @@ import static ru.aleksandrorlov.test4.Constant.EXCEPTION_NULL_LIST;
 public class YandexPictureAdapter extends
         RecyclerView.Adapter<YandexPictureAdapter.ViewHolder> {
 
+    public interface OnItemLongClickListener {
+        void onViewItemLongClicked(long yandexPictureId);
+    }
+
     private final Context context;
 
     private List<YandexPictureModel> yandexPictureModelList;
+
+    private OnItemLongClickListener onItemLongClickListener;
 
     @Inject
     public YandexPictureAdapter(Context context) {
@@ -47,7 +53,7 @@ public class YandexPictureAdapter extends
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        YandexPictureModel yandexPictureModel = yandexPictureModelList.get(position);
+        final YandexPictureModel yandexPictureModel = yandexPictureModelList.get(position);
 
         holder.textViewRequest.setText(yandexPictureModel.getRequest());
 
@@ -61,6 +67,17 @@ public class YandexPictureAdapter extends
                 .placeholder(R.drawable.progress_animation)
                 .error(R.drawable.error_download_image)
                 .into(holder.imageView);
+
+        holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                if (YandexPictureAdapter.this.onItemLongClickListener != null) {
+                    YandexPictureAdapter.this.onItemLongClickListener.
+                            onViewItemLongClicked(yandexPictureModel.getYandexPictureId());
+                }
+                return false;
+            }
+        });
     }
 
     @Override
@@ -78,6 +95,10 @@ public class YandexPictureAdapter extends
         if (yandexPictureModelCollection == null) {
             throw new IllegalArgumentException(EXCEPTION_NULL_LIST);
         }
+    }
+
+    public void setOnItemLongClickListener(OnItemLongClickListener onItemLongClickListener) {
+        this.onItemLongClickListener = onItemLongClickListener;
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {

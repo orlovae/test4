@@ -29,9 +29,7 @@ import ru.aleksandrorlov.test4.model.YandexPictureModel;
 import ru.aleksandrorlov.test4.presenter.YandexPictureListPresenter;
 import ru.aleksandrorlov.test4.view.YandexPictureListView;
 import ru.aleksandrorlov.test4.view.activity.view.FloatingActionButton;
-import ru.aleksandrorlov.test4.view.adapter.IRecyclerViewClickListener;
 import ru.aleksandrorlov.test4.view.adapter.YandexPictureAdapter;
-import ru.aleksandrorlov.test4.view.adapter.RecyclerViewTouchListener;
 import ru.aleksandrorlov.test4.view.fragment.Dialog;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener,
@@ -147,22 +145,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         recyclerView.addItemDecoration(new DividerItemDecoration(this,
                 DividerItemDecoration.VERTICAL));
 
+        this.yandexPictureAdapter.setOnItemLongClickListener(onItemLongClickListener);
         recyclerView.setAdapter(yandexPictureAdapter);
         recyclerView.setLayoutManager(layoutManager);
-
-        recyclerView.addOnItemTouchListener(new RecyclerViewTouchListener(this, recyclerView,
-                new IRecyclerViewClickListener() {
-                    @Override
-                    public void onClick(View view, int position) {
-
-                    }
-
-                    @Override
-                    public void onLongClick(View view, int position) {
-                        yandexPictureListPresenter.onLongPress(position);
-                    }
-                }));
     }
+
+    private YandexPictureAdapter.OnItemLongClickListener onItemLongClickListener =
+            new YandexPictureAdapter.OnItemLongClickListener() {
+                @Override
+                public void onViewItemLongClicked(long yandexPictureId) {
+                    yandexPictureListPresenter.onLongPress(yandexPictureId);
+                }
+            };
 
     private void loadYandexPictureList() {
         this.yandexPictureListPresenter.initialize();

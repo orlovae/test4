@@ -75,8 +75,8 @@ public class YandexPictureListPresenter implements Presenter {
         this.yandexPictureListView.renderYandexPictureList(yandexPictureModelCollection);
     }
 
-    public void onLongPress(int itemPosition) {
-        Log.d(TAG, "onLongPress: itemPosition = " + itemPosition);
+    public void onLongPress(long yandexPictureId) {
+        Log.d(TAG, "onLongPress: itemPosition = " + yandexPictureId);
         //TODO удалять из базы данных по itemPosition
     }
 
