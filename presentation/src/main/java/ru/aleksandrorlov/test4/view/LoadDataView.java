@@ -7,7 +7,6 @@ import android.content.Context;
  */
 
 public interface LoadDataView {
-    void showDeleteYandexPicture();
     void showError(String message);
     Context context();
 }

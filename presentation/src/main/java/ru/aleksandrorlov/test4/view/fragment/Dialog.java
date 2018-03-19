@@ -2,7 +2,10 @@ package ru.aleksandrorlov.test4.view.fragment;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Bitmap;
 import android.graphics.Point;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
@@ -17,6 +20,10 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.squareup.picasso.Picasso;
+
+import java.lang.annotation.Target;
+
 import ru.aleksandrorlov.test4.R;
 
 import static android.content.Context.WINDOW_SERVICE;
@@ -25,7 +32,7 @@ import static android.content.Context.WINDOW_SERVICE;
  * Created by alex on 17.03.18.
  */
 
-public class Dialog extends DialogFragment implements View.OnClickListener {
+public class Dialog extends DialogFragment implements View.OnClickListener, IDialog {
     private Button replaceButton, addButton;
 
     @Override
