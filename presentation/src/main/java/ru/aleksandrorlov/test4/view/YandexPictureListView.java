@@ -9,5 +9,6 @@ import ru.aleksandrorlov.test4.model.YandexPictureModel;
  */
 
 public interface YandexPictureListView extends LoadDataView {
+    void showDeleteYandexPicture();
     void renderYandexPictureList(Collection<YandexPictureModel> yandexPictureModelCollection);
 }
