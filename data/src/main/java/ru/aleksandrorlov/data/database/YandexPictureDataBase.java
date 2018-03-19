@@ -3,6 +3,7 @@ package ru.aleksandrorlov.data.database;
 import java.util.Collection;
 import java.util.List;
 
+import io.reactivex.Observable;
 import ru.aleksandrorlov.data.entity.YandexPictureEntity;
 
 /**
@@ -13,7 +14,7 @@ public interface YandexPictureDataBase {
     void put(YandexPictureEntity yandexPictureEntity);
     void putAll(Collection<YandexPictureEntity> yandexPictureEntityList);
     void update(final long yandexPictureId, YandexPictureEntity yandexPictureEntity);
-    void delete(final long yandexPictureId);
+    Observable<Boolean> delete(final long yandexPictureId);
 
     boolean contains(final long yandexPictureId);
 

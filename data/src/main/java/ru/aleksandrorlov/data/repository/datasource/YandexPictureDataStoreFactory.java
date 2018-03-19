@@ -2,9 +2,11 @@ package ru.aleksandrorlov.data.repository.datasource;
 
 import android.content.Context;
 
+import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import ru.aleksandrorlov.data.database.YandexPictureDataBase;
+import ru.aleksandrorlov.data.database.YandexPictureDataBaseImpl;
 import ru.aleksandrorlov.data.net.ParseNet;
 import ru.aleksandrorlov.data.net.ParseNetImpl;
 
@@ -16,6 +18,7 @@ public class YandexPictureDataStoreFactory {
     private final Context context;
     private final YandexPictureDataBase yandexPictureDataBase;
 
+    @Inject
     public YandexPictureDataStoreFactory(Context context,
                                          YandexPictureDataBase yandexPictureDataBase) {
         this.context = context.getApplicationContext();
@@ -33,7 +36,11 @@ public class YandexPictureDataStoreFactory {
     }
 
     public YandexPictureDataStore createCloudYandexPictureDataStore() {
-        final ParseNet parseNet = new ParseNetImpl(context);
+        final ParseNet parseNet = new ParseNetImpl(context, createYandexPictureDataBase());
         return new CloudYandexPictureDataStore(parseNet);
+    }
+
+    public YandexPictureDataBase createYandexPictureDataBase() {
+        return new YandexPictureDataBaseImpl();
     }
 }

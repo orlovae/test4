@@ -1,11 +1,14 @@
 package ru.aleksandrorlov.data.repository;
 
+import android.util.Log;
+
 import java.util.List;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import io.reactivex.Observable;
+import ru.aleksandrorlov.data.database.YandexPictureDataBase;
 import ru.aleksandrorlov.data.entity.mapper.YandexPictureEntityDataMapper;
 import ru.aleksandrorlov.data.repository.datasource.YandexPictureDataStore;
 import ru.aleksandrorlov.data.repository.datasource.YandexPictureDataStoreFactory;
@@ -18,6 +21,7 @@ import ru.aleksandrorlov.domain.repository.YandexPictureRepository;
 
 @Singleton
 public class YandexPictureDataRepository implements YandexPictureRepository {
+    private final String TAG = this.getClass().getSimpleName();
     private final YandexPictureDataStoreFactory yandexPictureDataStoreFactory;
     private final YandexPictureEntityDataMapper yandexPictureEntityDataMapper;
 
@@ -42,5 +46,12 @@ public class YandexPictureDataRepository implements YandexPictureRepository {
                 this.yandexPictureDataStoreFactory.create(yandexPictureId);
         return
                 dataStore.yandexPictureEntity(yandexPictureId).map(this.yandexPictureEntityDataMapper::transform);
+    }
+
+    @Override
+    public Observable<Boolean> deleteYandexPicture(long yandexPictureId) {
+        final YandexPictureDataBase yandexPictureDataBase =
+                this.yandexPictureDataStoreFactory.createYandexPictureDataBase();
+        return yandexPictureDataBase.delete(yandexPictureId);
     }
 }

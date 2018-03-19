@@ -13,4 +13,6 @@ public interface YandexPictureRepository {
     Observable<List<YandexPicture>> yandexPictures();
 
     Observable<YandexPicture> yandexPicture(final long yandexPictureId);
+
+    Observable<Boolean> deleteYandexPicture(final long yandexPictureId);
 }

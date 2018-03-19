@@ -1,22 +1,18 @@
-package ru.aleksandrorlov.data.entity;
-
-import com.orm.SugarRecord;
+package ru.aleksandrorlov.test4.model;
 
 /**
- * Created by alex on 16.03.18.
+ * Created by alex on 17.03.18.
  */
 
-public class YandexPictureEntity extends SugarRecord<YandexPictureEntity> {
+public class YandexPictureModel {
+
+    public YandexPictureModel() {
+
+    }
+
     private long yandexPictureId;
     private String url;
     private String request;
-
-    public YandexPictureEntity() {}
-
-    public YandexPictureEntity(String url, String request) {
-        this.url = url;
-        this.request = request;
-    }
 
     public long getYandexPictureId() {
         return yandexPictureId;
@@ -44,11 +40,10 @@ public class YandexPictureEntity extends SugarRecord<YandexPictureEntity> {
 
     @Override
     public String toString() {
-        return "YandexPictureEntity{" +
+        return "YandexPictureModel{" +
                 "yandexPictureId=" + yandexPictureId +
                 ", url='" + url + '\'' +
                 ", request='" + request + '\'' +
-                ", id=" + id +
                 '}';
     }
 }
